@@ -24,15 +24,15 @@
                                 <div class="col-12 col-lg-5">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre"
-                                            aria-describedby="helpId" placeholder="" />
+                                        <input type="text" class="form-control rounded" name="nombre" id="nombre"
+                                            aria-describedby="helpId" placeholder="" style="border-color: #B2BABB"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-5">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Observación</label>
-                                        <input type="text" class="form-control" name="observaciones" id="observaciones"
-                                            aria-describedby="helpId" placeholder="" />
+                                        <input type="text" class="form-control rounded" name="observaciones" id="observaciones"
+                                            aria-describedby="helpId" placeholder="" style="border-color: #B2BABB"/>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2 align-content-center text-center mt-3">

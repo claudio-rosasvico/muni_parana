@@ -24,8 +24,9 @@
                         </div>
                         <div class="col">
                             <div class="mt-3">
-                                <input type="text" class="form-control" name="search" id="search"
-                                    aria-describedby="helpId" placeholder="Buscar" />
+                                <input type="text" class="form-control rounded" name="search" id="search"
+                                    aria-describedby="helpId" placeholder="Buscar" style="border-color: #B2BABB"/>
+                                
                             </div>
                         </div>
                     </div>
