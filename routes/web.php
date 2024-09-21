@@ -4,6 +4,7 @@ use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/parametros/getProductos', [ProductoController::class, 'showByEmprendedor']);
     Route::delete('/parametros/productos/delete/{idProducto}', [ProductoController::class, 'destroy']);
     Route::get('/parametros/emprendimientoByProducto/{idProducto}', [ProductoController::class, 'emprendimientoByProducto']);
+
+    /* User */
+    Route::get('user', [UserController::class, 'index'])->middleware('role:administrador');
+    Route::post('user/updateRole', [UserController::class, 'updateRole']);
+    Route::post('user/destroy', [UserController::class, 'destroy']);
 
 });
 

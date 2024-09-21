@@ -90,7 +90,7 @@
                                     <div id="productos_seleccionados">
 
                                     </div>
-                                    <input type="text" id="arrayProductos" name="arrayProductos">
+                                    <input type="hidden" id="arrayProductos" name="arrayProductos">
                                 </div>
                             </div>
 

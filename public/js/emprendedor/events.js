@@ -1,10 +1,10 @@
-$(document).ready(function () {
+$(document).ready( function () {
     let productos = [];
     $('#arrayProductos').val() && (productos = JSON.parse($('#arrayProductos').val()));
-    console.log(`Productos: ${productos}`)
+    
     
 
-    $('#productos').change(function (e) {
+    $('#productos').on('change', function (e) {
         e.preventDefault();
         let idProducto = parseInt($(this).val());
         if (productos.length < 3 & !verificaProducto(idProducto, productos)) {

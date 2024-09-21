@@ -9,7 +9,7 @@
                         <x-application-logo width="70" />
                     </a>
                 </div>
-
+                @hasanyrole('administrador|editor')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('emprendedor.index')" :active="request()->routeIs('dashboard')">
@@ -25,8 +25,14 @@
                         <li>
                             <x-nav-link class="dropdown-item ms-1" href="/parametros/productos">Productos</x-nav-link>
                         </li>
+                        @hasrole('administrador')
+                        <li>
+                            <x-nav-link class="dropdown-item ms-1" href="/user">Usuarios</x-nav-link>
+                        </li>
+                        @endhasrole
                     </ul>
                 </div>
+                @endhasanyrole
             </div>
             <img src="" alt="" height="">
             <!-- Settings Dropdown -->

@@ -30,7 +30,7 @@
                             <div class="row mt-3">
                                 <div class="col col-lg-2">
                                     <x-input-label for="nro_expediente">Nº Expediente</x-input-label>
-                                    <x-text-input type="number" name="nro_expediente" id="nro_expediente" value="{{ $emprendedor->nro_expediente }}">
+                                    <x-text-input class="" type="number" name="nro_expediente" id="nro_expediente" value="{{ $emprendedor->nro_expediente }}">
                                     </x-text-input>
                                 </div>
                                 <div class="col col-lg-2">
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col col-lg-4">
                                     <x-input-label for="apellido">Apellido</x-input-label>
-                                    <x-text-input name="apellido" value="{{ $emprendedor->apellido }}" id="apellido"  required></x-text-input>
+                                    <x-text-input name="apellido" value="{{ $emprendedor->apellido }}" id="apellido" required></x-text-input>
                                 </div>
                                 <div class="col col-lg-4">
                                     <x-input-label for="nombre">Nombre</x-input-label>
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="col col-lg-3">
                                     <x-input-label for="productos">Productos</x-input-label>
-                                    <x-text-select id="productos" required>
+                                    <x-text-select id="productos" class="selectpicker" data-live-search="true" required>
                                         <option value="selecione">- Seleccione Producto -</option>
                                         @foreach ($productos as $producto)
                                         <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>

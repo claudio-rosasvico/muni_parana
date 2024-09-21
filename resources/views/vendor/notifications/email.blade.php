@@ -309,9 +309,9 @@
         default => 'primary',
     };
 ?>
-                                                                <x-mail::button :url="$actionUrl" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #000000; background-color: #fdb441; border-radius: 25px;-webkit-border-radius: 25px; -moz-border-radius: 25px; width:38%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
+                                                                <x-mail::button :url="$actionUrl" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #160c9c; background-color: #fdb441; border-radius: 25px;-webkit-border-radius: 25px; -moz-border-radius: 25px; width:38%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
                                                                     <span style="display:block;padding:10px 20px;line-height:120%;"><span
-                                                                        style="line-height: 16.8px; color: white; text-decoration: none">Resetear Contraseña</span></span>
+                                                                        style="line-height: 16.8px; color: white; text-decoration: none !important">Resetear Contraseña</span></span>
                                                                 </x-mail::button>
                                                                 @endisset
 
