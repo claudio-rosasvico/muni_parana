@@ -35,7 +35,7 @@
                                     <td>{{ $user->email }} </td>
                                     <td>
                                         <div class="mb-3">
-                                            <select class=" rounded" name="role" id="role" data-id="{{ $user->id }}"> 
+                                            <select class=" rounded" name="role" id="role" data-id="{{ $user->id }}" {{ ($user->id == auth()->user()->id) ? 'disabled' : '' }}> 
                                                 @php($roleUser = $user->getRoleNames()->first())
                                                 @foreach ($roles as $role)
                                                 <option
