@@ -12,7 +12,7 @@ $(document).ready( function () {
             productos.push(idProducto)
             $('#arrayProductos').val(JSON.stringify(productos));
             console.log(nombreProducto + '-> id: ' + idProducto)
-            let badgeProducto = `<p class='badge text-bg-secondary eliminar_productoo me-1' data-id='${idProducto}'>${nombreProducto}</p>`
+            let badgeProducto = `<p class='badge text-bg-secondary eliminar_producto me-1' data-id='${idProducto}'>${nombreProducto} <span class="eliminar_producto" data-id='${idProducto}' style="cursor: pointer"><i class="fa-regular fa-circle-xmark"></i></span></p>`
             $('#productos_seleccionados').append(badgeProducto);
             console.log(productos);
         } else if (productos.length >= 3) {
@@ -23,14 +23,15 @@ $(document).ready( function () {
         $('#productos').prop('selectedIndex', 0);
     });
 
-    $('#productos_seleccionados').on('click', '.eliminar_productoo', function (e) {
+    $('#productos_seleccionados').on('click', '.eliminar_producto', function (e) {
         e.preventDefault();
         let idProducto = $(this).data('id');
         let idEmprendimiento = $('#idEmprendimiento').val()
+        console.log(`idProducto: ${idProducto} -> idEmprendimiento: ${idEmprendimiento}`)
         CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: "DELETE",
-            url: "/parametros/deleteEmprProd",
+            url: "/deleteProdDelEmprendimiento",
             data: {
                 'producto_id': idProducto,
                 'emprendimiento_id': idEmprendimiento,
@@ -44,21 +45,6 @@ $(document).ready( function () {
                 $('#arrayProductos').val(JSON.stringify(productos));
                 $(`p[data-id="${idProducto}"]`).addClass('d-none');
                 console.log(productos);
-            }
-        });
-    });
-
-    $('#deleteProducto').on('click', function (e) { 
-        e.preventDefault();
-        let idProducto = $(this).data('id');
-        $.ajax({
-            type: "DELETE",
-            url: `/parametros/productos/delete/${idProducto}`,
-            data: {
-                '_token': CSRF_TOKEN
-            },
-            success: function (response) {
-              alert('eliminado')  
             }
         });
     });

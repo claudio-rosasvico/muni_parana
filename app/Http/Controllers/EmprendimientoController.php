@@ -69,8 +69,8 @@ class EmprendimientoController extends Controller
         return $emprendimiento->delete();
     }
 
-    public function deleteEmprProd(Request $request){
-        Log::info('llego');
+    public function deleteProdDelEmprendimiento(Request $request){
+        Log::info($request);
         Emprendimiento_producto::where('producto_id', $request->producto_id)
                   ->where('emprendimiento_id', $request->emprendimiento_id)
                   ->delete();

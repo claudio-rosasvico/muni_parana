@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/emprendedor/delete/{idEmprendedor}', [EmprendedorController::class, 'destroy']);
     Route::get('/searchEmprendedor', [EmprendedorController::class, 'search']);
     Route::get('/emprendedor/validacion/campo', [EmprendedorController::class, 'validacionCampo']);
+    Route::delete('/deleteProdDelEmprendimiento', [EmprendimientoController::class, 'deleteProdDelEmprendimiento']);
     
     /*Parámetros*/
     Route::resource('/parametros/productos', ProductoController::class)->except('update', 'delete', 'store');

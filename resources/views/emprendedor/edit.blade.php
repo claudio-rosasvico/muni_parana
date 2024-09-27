@@ -91,7 +91,7 @@
                                     <x-input-label for="productos">Productos Seleccionados</x-input-label>
                                     <div id="productos_seleccionados">
                                         @foreach ($emprendedor->emprendimiento->first()->productos as $producto)
-                                        <p class="badge text-bg-secondary eliminar_productoo  me-1" data-id="{{ $producto->producto_id }}">{{ $producto->producto->nombre }}</p>
+                                        <p class="badge text-bg-secondary me-1" data-id="{{ $producto->producto_id }}">{{ $producto->producto->nombre }} <span class="eliminar_producto" data-id="{{ $producto->producto_id }}" style="cursor: pointer"><i class="fa-regular fa-circle-xmark"></i></span></p>
                                         @endforeach
                                     </div>
                                     @php($arrayProductos = $emprendedor->emprendimiento->first()->productos)

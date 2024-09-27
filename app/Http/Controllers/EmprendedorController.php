@@ -141,6 +141,7 @@ class EmprendedorController extends Controller
      */
     public function destroy($idEmprendedor)
     {
+        Log::info('Paso por emprendedorController');
         $emprendedor = Emprendedor::find($idEmprendedor);
         $emprendimientos = $emprendedor->emprendimiento;
         foreach($emprendimientos as $emprendimiento){
