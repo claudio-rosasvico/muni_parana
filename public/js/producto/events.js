@@ -4,6 +4,7 @@ $(document).ready(function () {
         e.preventDefault();
         CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         let idProducto = $(this).data('id');
+        $('body').css('cursor', 'wait');
         $.ajax({
             type: "DELETE",
             url: `/parametros/productos/delete/${idProducto}`,
@@ -37,6 +38,7 @@ $(document).ready(function () {
                     `;
                     $('#tabla-productos tbody').append(fila);
                 })
+                $('body').css('cursor', 'default');
             }
         });
     });

@@ -71,11 +71,11 @@
                                         <td>{{ $producto->nombre }}</td>
                                         <td>{{ $producto->observaciones }}</td>
                                         <td>
-                                            <a href="/parametros/emprendimientoByProducto/{{ $producto->id }}">
+                                            <a href="/parametros/emprendimientoByProducto/{{ $producto->id }}" style="cursor: pointer">
                                                 {{ $producto->emprendimientos->count() }}</td>
                                             </a>
                                         <td>
-                                            <a class="deleteProducto" data-id="{{ $producto->id }}">
+                                            <a class="deleteProducto" data-id="{{ $producto->id }}" style="cursor: pointer">
                                                 <i class="fa-regular fa-trash-can"></i>
                                             </a>
                                         </td>

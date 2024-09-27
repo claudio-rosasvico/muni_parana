@@ -27,7 +27,7 @@ $(document).ready( function () {
         e.preventDefault();
         let idProducto = $(this).data('id');
         let idEmprendimiento = $('#idEmprendimiento').val()
-        console.log(`idProducto: ${idProducto} -> idEmprendimiento: ${idEmprendimiento}`)
+        $('body').css('cursor', 'wait');
         CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: "DELETE",
@@ -44,7 +44,7 @@ $(document).ready( function () {
                 productos.splice(indice, 1);
                 $('#arrayProductos').val(JSON.stringify(productos));
                 $(`p[data-id="${idProducto}"]`).addClass('d-none');
-                console.log(productos);
+                $('body').css('cursor', 'default');
             }
         });
     });
@@ -52,6 +52,7 @@ $(document).ready( function () {
     $('#tabla_emprendedores').on('click', '.eliminar_emprendedor', function (e) {
         e.preventDefault();
         let idEmprendedor = $(this).data('id');
+        $('body').css('cursor', 'wait');
         CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: "DELETE",
@@ -62,6 +63,7 @@ $(document).ready( function () {
             },
             success: function (response) {
                 tablaEmprendedores(response);
+                $('body').css('cursor', 'default');
             }
         });
     });
