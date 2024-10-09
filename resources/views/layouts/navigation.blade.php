@@ -12,9 +12,18 @@
                 @hasanyrole('administrador|editor')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('emprendedor.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :active="request()->routeIs('/emprendedor')" class="dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         {{ __('Emprendedores') }}
                     </x-nav-link>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor">Lista de Emprendedores</x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Exportar/Importar</x-nav-link>
+                        </li>
+                    </ul>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex dropdown">
                     <x-nav-link :active="request()->routeIs('dashboard')" class="dropdown-toggle" href="#" role="button"
@@ -27,7 +36,7 @@
                         </li>
                         @hasrole('administrador')
                         <li>
-                            <x-nav-link class="dropdown-item ms-1" href="/user">Usuarios</x-nav-link>
+                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Usuarios</x-nav-link>
                         </li>
                         @endhasrole
                     </ul>
@@ -99,9 +108,20 @@
         <!-- Responsive Settings Options -->
         <div class="pb-1 border-t border-gray-200">
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('emprendedor.index')">
+                <x-responsive-nav-link class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                     {{ __('Emprendedores') }}
                 </x-responsive-nav-link>
+                <ul class="dropdown-menu">
+                    <li>
+                        <x-nav-link class="dropdown-item ms-1" href="/parametros/productos">Productos</x-nav-link>
+                    </li>
+                    @hasrole('administrador')
+                    <li>
+                        <x-nav-link class="dropdown-item ms-1" href="/user">Usuarios</x-nav-link>
+                    </li>
+                    @endhasrole
+                </ul>
                 <x-responsive-nav-link class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     {{ __('Configuración') }}
