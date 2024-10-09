@@ -179,4 +179,9 @@ class EmprendedorController extends Controller
 
         return response()->json(['emprendedores' => $emprendedores, 'emprendimientos' => $emprendimientos]);
     }
+
+    public function exportarImportar(){
+        Log::info('Pase por emprendedor/exportarImportar');
+        return view('emprendedor.exportarImportar');
+    }
 }

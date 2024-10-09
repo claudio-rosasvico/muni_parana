@@ -1,26 +1,23 @@
-$(document).ready( function () {
+$(document).ready(function () {
     let productos = [];
     $('#arrayProductos').val() && (productos = JSON.parse($('#arrayProductos').val()));
-    
-    
 
-    $('#productos').on('change', function (e) {
-        e.preventDefault();
-        let idProducto = parseInt($(this).val());
-        if (productos.length < 3 & !verificaProducto(idProducto, productos)) {
-            var nombreProducto = $(this).find('option:selected').text();
-            productos.push(idProducto)
-            $('#arrayProductos').val(JSON.stringify(productos));
-            console.log(nombreProducto + '-> id: ' + idProducto)
-            let badgeProducto = `<p class='badge text-bg-secondary eliminar_producto me-1' data-id='${idProducto}'>${nombreProducto} <span class="eliminar_producto" data-id='${idProducto}' style="cursor: pointer"><i class="fa-regular fa-circle-xmark"></i></span></p>`
-            $('#productos_seleccionados').append(badgeProducto);
-            console.log(productos);
-        } else if (productos.length >= 3) {
-            toastr["warning"]("El emprendimiento ya tiene el máximo de 3 productos", "Listado completo");
-        } else {
-            toastr["warning"]("El producto ya fue registrado en el emprendimiento", "Producto repetido");
-        }
-        $('#productos').prop('selectedIndex', 0);
+    let table = new DataTable('#tabla_emprendedores', {
+        language: {
+            url: '/datatable/lang.json'
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        },
+        columnDefs: [{ 
+            "className": "dt-center", 
+            "targets": "_all" 
+        } 
+    ]
     });
 
     $('#productos_seleccionados').on('click', '.eliminar_producto', function (e) {
@@ -99,25 +96,7 @@ $(document).ready( function () {
         }
     });
 
+    /////// IMPORTAR EXPORTAR ///////
 
-
-    //Buscador/////////////////////////////////////////////////////
-
-    $('#search').on('keyup', function (e) {
-        e.preventDefault();
-        let search = $(this).val();
-        CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        console.log(`serach: ${search}`)
-        $.ajax({
-            type: "GET",
-            url: `/searchEmprendedor`,
-            data: {
-                search: search,
-                '_token': CSRF_TOKEN
-            },
-            success: function (response) {
-                tablaEmprendedores(response);
-            }
-        });
-    });
+    
 });

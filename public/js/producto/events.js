@@ -1,5 +1,23 @@
 $(document).ready(function () {
 
+    let table = new DataTable('#tabla-productos', {
+        language: {
+            url: '/datatable/lang.json'
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        },
+        columnDefs: [{ 
+            "className": "dt-center", 
+            "targets": "_all" 
+        } 
+    ]
+    });
+
     $('#tabla-productos').on('click', '.deleteProducto', function (e) {
         e.preventDefault();
         CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

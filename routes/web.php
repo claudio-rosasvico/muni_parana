@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/searchEmprendedor', [EmprendedorController::class, 'search']);
     Route::get('/emprendedor/validacion/campo', [EmprendedorController::class, 'validacionCampo']);
     Route::delete('/deleteProdDelEmprendimiento', [EmprendimientoController::class, 'deleteProdDelEmprendimiento']);
+    Route::get('/emprendedor/exportarImportar', [EmprendedorController::class, 'exportarImportar']);
     
     /*Parámetros*/
     Route::resource('/parametros/productos', ProductoController::class)->except('update', 'delete', 'store');

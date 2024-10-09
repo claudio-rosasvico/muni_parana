@@ -1,4 +1,14 @@
 <x-app-layout>
+    @section('css')
+    <link rel="stylesheet" href="/datatable/datatables.min.css">
+    @endsection
+    <style>
+        /* Este CSS lo hago para dar estilo al input de datatable */
+        #dt-search-0 {
+            border-radius: 10px !important;
+            padding: 5px;
+        }
+    </style>
     <x-slot name="header">
         <div class="row">
 
@@ -14,26 +24,7 @@
             </div>
         </div>
     </x-slot>
-    <div class="mt-3">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="container">
-                        <div class="">
-                            <h3><strong>Buscar Emprendedor</strong></h3>
-                        </div>
-                        <div class="col">
-                            <div class="mt-3">
-                                <input type="text" class="form-control rounded" name="search" id="search"
-                                    aria-describedby="helpId" placeholder="Buscar" style="border-color: #B2BABB"/>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     @inject('carbon', 'Carbon\Carbon')
     <div class="mt-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -55,32 +46,35 @@
                             <tbody>
                                 @php($count = 1)
                                 @if($emprendedores->count() > 0)
-                                
+
                                 @foreach ($emprendedores as $emprendedor)
                                 @if ($emprendedor->emprendimiento->count() > 0)
                                 <tr class="">
                                     <td scope="row">{{ $count }}</td>
                                     <td>{{ $emprendedor->nombre }} {{ $emprendedor->apellido }}</td>
-                                    
+
                                     <td>{{ $emprendedor->emprendimiento->first()->nombre }}</td>
                                     <td>{{ isset($emprendedor->emprendimiento->first()->habilitacion)? (date( 'd-m-Y', strtotime($emprendedor->emprendimiento->first()->habilitacion))) : 'Sin Habilitación' }}
                                     </td>
                                     <td>
-                                        @php($diasRestantes = $carbon::now()->diffInDays($emprendedor->venc_carnet, false))
-                                        @if($diasRestantes < 10)
-                                        <p class="badge text-bg-danger">{{ date( 'd-m-Y', strtotime($emprendedor->venc_carnet)) }}</p>
-                                        @elseif(($diasRestantes < 30))
-                                        <p class="badge text-bg-warning">{{ date( 'd-m-Y', strtotime($emprendedor->venc_carnet)) }}</p>
-                                        @else
-                                        <p class="badge text-bg-success">{{ date( 'd-m-Y', strtotime($emprendedor->venc_carnet)) }}</p>
-                                        @endif
+                                        @php($diasRestantes = $carbon::now()->diffInDays($emprendedor->venc_carnet,
+                                        false))
+                                        @if($diasRestantes < 10) <p class="badge text-bg-danger">
+                                            {{ date( 'd-m-Y', strtotime($emprendedor->venc_carnet)) }}</p>
+                                            @elseif(($diasRestantes < 30)) <p class="badge text-bg-warning">
+                                                {{ date( 'd-m-Y', strtotime($emprendedor->venc_carnet)) }}</p>
+                                                @else
+                                                <p class="badge text-bg-success">
+                                                    {{ date( 'd-m-Y', strtotime($emprendedor->venc_carnet)) }}</p>
+                                                @endif
                                     </td>
                                     <td>
                                         <a href="/emprendedor/{{ $emprendedor->id }}"><i
                                                 class="fa-solid fa-magnifying-glass me-2"></i></a>
                                         <a href="/emprendedor/{{ $emprendedor->id }}/edit"><i
                                                 class="fa-regular fa-pen-to-square me-2"></i></a>
-                                        <a class="eliminar_emprendedor" data-id="{{ $emprendedor->id }}"><i class="fa-regular fa-trash-can"></i></a>
+                                        <a class="eliminar_emprendedor" data-id="{{ $emprendedor->id }}"><i
+                                                class="fa-regular fa-trash-can"></i></a>
                                     </td>
                                 </tr>
                                 @php($count++)
@@ -96,7 +90,8 @@
         </div>
     </div>
     @section('js')
-    <script src="{{ asset('/js/emprendedor/events.js') }}"></script>
+    <script src="/datatable/datatables.min.js"></script>
+    <script src="{{ asset('/js/emprendedor/events.js') }}" defer></script>
     <script src="{{ asset('/js/emprendedor/functions.js') }}"></script>
     @endsection
 </x-app-layout>

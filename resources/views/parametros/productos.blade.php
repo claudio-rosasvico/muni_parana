@@ -1,4 +1,14 @@
 <x-app-layout>
+    @section('css')
+    <link rel="stylesheet" href="/datatable/datatables.min.css">
+    @endsection
+    <style>
+        /* Este CSS lo hago para dar estilo al input de datatable */
+        #dt-search-0 {
+            border-radius: 10px !important;
+            padding: 5px;
+        }
+    </style>
     <x-slot name="header">
         <div class="row">
 
@@ -10,7 +20,7 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -47,19 +57,18 @@
             </div>
         </div>
     </div>
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 text-center">
-                    <div class="container">
-                        <div class="table-responsive">
+                        <div class="table-responsive-lg">
                             <table class="table" id="tabla-productos">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Observación</th>
-                                        <th scope="col">Cantidad</th>
+                                        <th scope="col" class="text-center">Cantidad</th>
                                         <th scope="col">Eliminar</th>
                                     </tr>
                                 </thead>
@@ -70,7 +79,7 @@
                                         <th scope="row">{{ $count }}</th>
                                         <td>{{ $producto->nombre }}</td>
                                         <td>{{ $producto->observaciones }}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="/parametros/emprendimientoByProducto/{{ $producto->id }}" style="cursor: pointer">
                                                 {{ $producto->emprendimientos->count() }}</td>
                                             </a>
@@ -86,13 +95,12 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
     @section('js')
+    <script src="/datatable/datatables.min.js"></script>
     <script src="{{ asset('/js/producto/events.js') }}"></script>
     @endsection
 </x-app-layout>
