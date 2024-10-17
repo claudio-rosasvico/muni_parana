@@ -1,9 +1,6 @@
 <x-app-layout>
-    @section('css')
-    <link rel="stylesheet" href="/datatable/datatables.min.css">
-    @endsection
     <style>
-        <style>.file-drop-area {
+        .file-drop-area {
             position: relative !important;
             display: flex !important;
             align-items: center !important;
@@ -43,7 +40,7 @@
             opacity: 0 !important;
         }
     </style>
-    
+
     <x-slot name="header">
         <div class="row">
 
@@ -58,22 +55,40 @@
     <div class="mt-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="mt-3 ms-3">
+                    <h1 class="font-semibold text-l text-gray-800 leading-tight">Exportar archivo de Emprendedores</h1>
+                </div>
                 <div class="p-6 text-gray-900 text-center">
-                    <div class="container mt-4">
-                        <form action="{{route('importar_partida')}}" enctype="multipart/form-data" method="POST">
+                    <div class="container">
+                        <p >Hace click sobre el siguiente botón si querés descargar el listado de emprendedores</p>
+                        <form action="/emprendedor/exportAll" method="get"  class="mb-3">
+                        <button type="submit" class="btn btn-sm btn-primary mt-1" >Exportar Emprendedores</button>
+                        </form>
+                        <hr>
+                        <p class="mt-3"> O hacé click <strong><a href="{{ asset('downloads/planilla_vacia_emprendedores.xlsx') }}">aquí</a></strong> si querés descargar una planilla vacía.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="mt-3 ms-3">
+                    <h1 class="font-semibold text-l text-gray-800 leading-tight">Importar listado de Emprendedores</h1>
+                </div>
+                <div class="p-6 text-gray-900 text-center">
+                    <div class="container">
+                        <form action="{{ route('importarEmprendedores') }}" enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="form-group col-12">
                                 <div class="file-drop-area card mt-2 ml-2 mr-2">
                                     <span class="choose-file-button btn btn-warning">Seleccionar archivo</span>
                                     <span class="file-message mt-2">o arrastrar archivo aquí</span>
                                     <div id="file_loaded" class="file-message"></div>
-                                    <input type="file" name='partida_importar' id="partida_importar" class="file-input"
+                                    <input type="file" name='emprendedores_importar' id="emprendedores_importar" class="file-input"
                                         placeholder="Seleccione el archivo" required>
                                 </div>
                             </div>
                             <div class="form-group col-12 text-right">
 
-                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                             </div>
                         </form>
                     </div>

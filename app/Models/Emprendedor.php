@@ -15,6 +15,7 @@ class Emprendedor extends Model
 
 
     protected $fillable = [
+        'id',
         'nro_expediente',
         'anio_expediente',
         'apellido',

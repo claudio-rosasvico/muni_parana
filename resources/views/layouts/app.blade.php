@@ -34,6 +34,11 @@
         </header>
         @endif
 
+        <!-- Toast -->
+        <input type="hidden" name="typeToast" id="typeToast" value="{{ isset($typeToast) ? $typeToast : '' }}">
+        <input type="hidden" name="titleToast" id="titleToast" value="{{ isset($titleToast) ? $titleToast : '' }}">
+        <input type="hidden" name="messageToast" id="messageToast" value="{{ isset($messageToast) ? $messageToast : '' }}">
+
         <!-- Page Content -->
         <main>
             
@@ -44,6 +49,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('js/toast.js') }}"></script>
     @yield('js')
 </body>
 

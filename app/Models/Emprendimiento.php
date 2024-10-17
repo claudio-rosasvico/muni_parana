@@ -14,6 +14,7 @@ class Emprendimiento extends Model
     protected $table = 'emprendimientos';
 
     protected $fillable = [
+        'id',
         'emprendedor_id',
         'nombre',
         'CUIT', 

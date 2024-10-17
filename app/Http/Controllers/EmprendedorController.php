@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EmprendedoresExport;
+use App\Imports\EmprendedoresImport;
 use App\Models\Emprendimiento;
 use App\Models\Emprendedor;
 use App\Models\Emprendedor_producto;
@@ -10,11 +12,12 @@ use App\Models\Producto;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmprendedorController extends Controller
 {
     public $emprendimientoController;
-    
+
     public function __construct(EmprendimientoController $emprendimientoController)
     {
         $this->emprendimientoController = $emprendimientoController;
@@ -95,7 +98,7 @@ class EmprendedorController extends Controller
         }
 
         return view('emprendedor.edit', [
-            'emprendedor' => $emprendedor, 
+            'emprendedor' => $emprendedor,
             'productos' => $productos,
             'productosEmprendimiento' => $productosEmprendimiento
         ]);
@@ -144,7 +147,7 @@ class EmprendedorController extends Controller
         Log::info('Paso por emprendedorController');
         $emprendedor = Emprendedor::find($idEmprendedor);
         $emprendimientos = $emprendedor->emprendimiento;
-        foreach($emprendimientos as $emprendimiento){
+        foreach ($emprendimientos as $emprendimiento) {
             $this->emprendimientoController->destroy($emprendimiento);
         }
         $emprendedor->delete();
@@ -153,25 +156,26 @@ class EmprendedorController extends Controller
         $emprendimientos = Emprendimiento::all();
 
         return response()->json(['emprendedores' => $emprendedores, 'emprendimientos' => $emprendimientos]);
-
     }
 
-    public function validacionCampo(Request $request){
+    public function validacionCampo(Request $request)
+    {
 
         $existe = Emprendedor::where($request->campo, $request->valor)->exists();
 
         return response()->json($existe);
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
 
         $search = $request->search;
-        if($search != ''){
+        if ($search != '') {
             $emprendedores = Emprendedor::where('nombre', 'LIKE', '%' . $search . '%')
-            ->orWhere('apellido', 'LIKE', '%' . $search . '%')
-            ->orWhereHas('emprendimiento', function ($query) use ($search) {
-                $query->where('nombre', 'LIKE', '%' . $search . '%');
-            })->orderBy('venc_carnet', 'asc')->get();
+                ->orWhere('apellido', 'LIKE', '%' . $search . '%')
+                ->orWhereHas('emprendimiento', function ($query) use ($search) {
+                    $query->where('nombre', 'LIKE', '%' . $search . '%');
+                })->orderBy('venc_carnet', 'asc')->get();
         } else {
             $emprendedores = Emprendedor::orderBy('venc_carnet', 'asc')->get();
         }
@@ -180,8 +184,27 @@ class EmprendedorController extends Controller
         return response()->json(['emprendedores' => $emprendedores, 'emprendimientos' => $emprendimientos]);
     }
 
-    public function exportarImportar(){
-        Log::info('Pase por emprendedor/exportarImportar');
+    public function exportarImportar()
+    {
+
         return view('emprendedor.exportarImportar');
+    }
+
+    public function exportEmprendedor()
+    {
+
+        return Excel::download(new EmprendedoresExport, 'emprendedores.xlsx');
+    }
+
+    public function importEmprendedores(Request $request)
+    {
+        $file = $request->file('emprendedores_importar');
+
+        Excel::import(new EmprendedoresImport, $file);
+
+        return redirect('/emprendedor')
+            ->with('typeToast', 'success')
+            ->with('titleToast', 'Excelente')
+            ->with('messageToast', 'Emprendedores cargados correctamente');
     }
 }

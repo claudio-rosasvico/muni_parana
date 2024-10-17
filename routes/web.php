@@ -32,13 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     /*Emprendedor*/
-    Route::resource('emprendedor', EmprendedorController::class)->except('update', 'delete', 'search');
     Route::post('/emprendedor/update/{idEmprendedor}', [EmprendedorController::class, 'update']);
     Route::delete('/emprendedor/delete/{idEmprendedor}', [EmprendedorController::class, 'destroy']);
     Route::get('/searchEmprendedor', [EmprendedorController::class, 'search']);
     Route::get('/emprendedor/validacion/campo', [EmprendedorController::class, 'validacionCampo']);
     Route::delete('/deleteProdDelEmprendimiento', [EmprendimientoController::class, 'deleteProdDelEmprendimiento']);
     Route::get('/emprendedor/exportarImportar', [EmprendedorController::class, 'exportarImportar']);
+    Route::get('/emprendedor/exportAll', [EmprendedorController::class, 'exportEmprendedor']);
+    Route::post('/emprendedor/importEmprendedores', [EmprendedorController::class, 'importEmprendedores'])->name('importarEmprendedores');
+    Route::resource('emprendedor', EmprendedorController::class)->except('update', 'delete', 'search');
     
     /*Parámetros*/
     Route::resource('/parametros/productos', ProductoController::class)->except('update', 'delete', 'store');

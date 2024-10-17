@@ -2,24 +2,6 @@ $(document).ready(function () {
     let productos = [];
     $('#arrayProductos').val() && (productos = JSON.parse($('#arrayProductos').val()));
 
-    let table = new DataTable('#tabla_emprendedores', {
-        language: {
-            url: '/datatable/lang.json'
-        },
-        layout: {
-            bottomEnd: {
-                paging: {
-                    firstLast: false
-                }
-            }
-        },
-        columnDefs: [{ 
-            "className": "dt-center", 
-            "targets": "_all" 
-        } 
-    ]
-    });
-
     $('#productos_seleccionados').on('click', '.eliminar_producto', function (e) {
         e.preventDefault();
         let idProducto = $(this).data('id');
@@ -98,5 +80,19 @@ $(document).ready(function () {
 
     /////// IMPORTAR EXPORTAR ///////
 
-    
-});
+    $('#emprendedores_importar').change(function () {
+        const fileInput = $(this)[0];
+        const fileButton = $('.choose-file-button');
+
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name;
+            fileButton.text(fileName);
+            /* fileButton.removeClass('btn-warning').addClass('btn-success'); */
+            fileButton.css('background-color', 'green');
+            fileButton.css('color', 'white');
+        } else {
+            fileButton.text('Seleccionar archivo');
+            /* fileButton.removeClass('btn-success').addClass('btn-warning'); */
+        }
+    })
+})

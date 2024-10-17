@@ -93,5 +93,24 @@
     <script src="/datatable/datatables.min.js"></script>
     <script src="{{ asset('/js/emprendedor/events.js') }}" defer></script>
     <script src="{{ asset('/js/emprendedor/functions.js') }}"></script>
+    <script>
+        let table = new DataTable('#tabla_emprendedores', {
+        language: {
+            url: '/datatable/lang.json'
+        },
+        layout: {
+            bottomEnd: {
+                paging: {
+                    firstLast: false
+                }
+            }
+        },
+        columnDefs: [{
+            "className": "dt-center",
+            "targets": "_all"
+        }
+        ]
+    });
+    </script>
     @endsection
 </x-app-layout>
