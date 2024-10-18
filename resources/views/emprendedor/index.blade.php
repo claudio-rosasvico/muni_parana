@@ -35,8 +35,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Expediente</th>
                                     <th scope="col">Nombre</th>
-                                    {{-- <th scope="col">Email</th> --}}
                                     <th scope="col">Nombre del F.T.</th>
                                     <th scope="col">Habilitación</th>
                                     <th scope="col">Vencimiento Carnet</th>
@@ -51,6 +51,7 @@
                                 @if ($emprendedor->emprendimiento->count() > 0)
                                 <tr class="">
                                     <td scope="row">{{ $count }}</td>
+                                    <td class="text-center">{{ $emprendedor->nro_expediente }}/{{ $emprendedor->anio_expediente }}</td>
                                     <td>{{ $emprendedor->nombre }} {{ $emprendedor->apellido }}</td>
 
                                     <td>{{ $emprendedor->emprendimiento->first()->nombre }}</td>

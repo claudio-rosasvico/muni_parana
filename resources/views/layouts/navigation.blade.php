@@ -36,7 +36,7 @@
                         </li>
                         @hasrole('administrador')
                         <li>
-                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Usuarios</x-nav-link>
+                            <x-nav-link class="dropdown-item ms-1" href="/user">Usuarios</x-nav-link>
                         </li>
                         @endhasrole
                     </ul>
@@ -114,11 +114,11 @@
                 </x-responsive-nav-link>
                 <ul class="dropdown-menu">
                     <li>
-                        <x-nav-link class="dropdown-item ms-1" href="/parametros/productos">Productos</x-nav-link>
+                        <x-nav-link class="dropdown-item ms-1" href="/emprendedor">Lista de Emprendedores</x-nav-link>
                     </li>
                     @hasrole('administrador')
                     <li>
-                        <x-nav-link class="dropdown-item ms-1" href="/user">Usuarios</x-nav-link>
+                        <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Exportar/Importar</x-nav-link>
                     </li>
                     @endhasrole
                 </ul>

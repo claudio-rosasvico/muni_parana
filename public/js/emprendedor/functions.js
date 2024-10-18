@@ -16,8 +16,8 @@ const tablaEmprendedores = (response) => {
     
     $('#tabla_emprendedores tbody').empty();
 
+    let count = 1
     response.emprendedores.forEach(emprendedor => {
-        let count = 1
         let emprendimiento = emprendimientos[emprendedor.id];
         let fechaActual = new Date()
         let fechaVencCarnet = new Date(emprendedor.venc_carnet)
@@ -25,8 +25,8 @@ const tablaEmprendedores = (response) => {
         let fila = `
             <tr class="">
                         <td scope="row">${count}</td>
+                        <td>${emprendedor.nro_expediente}/${emprendedor.anio_expediente}</td>
                         <td>${emprendedor.nombre} ${emprendedor.apellido}</td>
-                        
                         <td>${emprendimiento.nombre}</td>
                         <td>${emprendimiento.habilitacion ? emprendimiento.habilitacion : 'Sin Habilitación'}
                         </td>
@@ -44,5 +44,6 @@ const tablaEmprendedores = (response) => {
                     </tr>
         `;
         $('#tabla_emprendedores tbody').append(fila);
+        count++
     })
 }

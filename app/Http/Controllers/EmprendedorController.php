@@ -71,7 +71,10 @@ class EmprendedorController extends Controller
                 'producto_id' => $producto
             ]);
         }
-        return redirect()->route('emprendedor.index')->with('success', 'Emprendedor y emprendimiento creados con éxito');
+        return redirect('/emprendedor')
+            ->with('typeToast', 'success')
+            ->with('titleToast', 'Excelente')
+            ->with('messageToast', 'Emprendedor creado correctamente');
     }
 
 
@@ -136,7 +139,10 @@ class EmprendedorController extends Controller
 
         $emprendedores = Emprendedor::orderBy('venc_carnet', 'asc')->get();
 
-        return view('emprendedor.index', ['emprendedores' => $emprendedores]);
+        return redirect('/emprendedor')
+            ->with('typeToast', 'success')
+            ->with('titleToast', 'Excelente')
+            ->with('messageToast', 'Emprendedor actualizado correctamente');
     }
 
     /**
@@ -164,24 +170,6 @@ class EmprendedorController extends Controller
         $existe = Emprendedor::where($request->campo, $request->valor)->exists();
 
         return response()->json($existe);
-    }
-
-    public function search(Request $request)
-    {
-
-        $search = $request->search;
-        if ($search != '') {
-            $emprendedores = Emprendedor::where('nombre', 'LIKE', '%' . $search . '%')
-                ->orWhere('apellido', 'LIKE', '%' . $search . '%')
-                ->orWhereHas('emprendimiento', function ($query) use ($search) {
-                    $query->where('nombre', 'LIKE', '%' . $search . '%');
-                })->orderBy('venc_carnet', 'asc')->get();
-        } else {
-            $emprendedores = Emprendedor::orderBy('venc_carnet', 'asc')->get();
-        }
-        $emprendimientos = Emprendimiento::all();
-
-        return response()->json(['emprendedores' => $emprendedores, 'emprendimientos' => $emprendimientos]);
     }
 
     public function exportarImportar()

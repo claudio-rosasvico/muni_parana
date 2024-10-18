@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-5">
-                                <p class="h3">Datos del Emprendimieno</p>
+                                <p class="h3">Datos del Emprendimiento</p>
                             </div>
                             <div class="row mt-3">
                                 <div class="col col-lg-3">

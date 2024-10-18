@@ -2,6 +2,25 @@ $(document).ready(function () {
     let productos = [];
     $('#arrayProductos').val() && (productos = JSON.parse($('#arrayProductos').val()));
 
+    $('#productos').on('change', function (e) {
+        e.preventDefault();
+        let idProducto = parseInt($(this).val());
+        if (productos.length < 3 & !verificaProducto(idProducto, productos)) {
+            var nombreProducto = $(this).find('option:selected').text();
+            productos.push(idProducto)
+            $('#arrayProductos').val(JSON.stringify(productos));
+            console.log(nombreProducto + '-> id: ' + idProducto)
+            let badgeProducto = `<p class='badge text-bg-secondary eliminar_producto me-1' data-id='${idProducto}'>${nombreProducto} <span class="eliminar_producto" data-id='${idProducto}' style="cursor: pointer"><i class="fa-regular fa-circle-xmark"></i></span></p>`
+            $('#productos_seleccionados').append(badgeProducto);
+            console.log(productos);
+        } else if (productos.length >= 3) {
+            toastr["warning"]("El emprendimiento ya tiene el máximo de 3 productos", "Listado completo");
+        } else {
+            toastr["warning"]("El producto ya fue registrado en el emprendimiento", "Producto repetido");
+        }
+        $('#productos').prop('selectedIndex', 0);
+    })
+
     $('#productos_seleccionados').on('click', '.eliminar_producto', function (e) {
         e.preventDefault();
         let idProducto = $(this).data('id');

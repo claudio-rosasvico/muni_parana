@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @yield('css')
@@ -35,21 +35,25 @@
         @endif
 
         <!-- Toast -->
-        <input type="hidden" name="typeToast" id="typeToast" value="{{ isset($typeToast) ? $typeToast : '' }}">
-        <input type="hidden" name="titleToast" id="titleToast" value="{{ isset($titleToast) ? $titleToast : '' }}">
-        <input type="hidden" name="messageToast" id="messageToast" value="{{ isset($messageToast) ? $messageToast : '' }}">
+        <input type="hidden" name="typeToast" id="typeToast"
+            value="{{ session('typeToast') ? session('typeToast') : '' }}">
+        <input type="hidden" name="titleToast" id="titleToast"
+            value="{{ session('titleToast') ? session('titleToast') : '' }}">
+        <input type="hidden" name="messageToast" id="messageToast"
+            value="{{ session('messageToast') ? session('messageToast') : '' }}">
 
         <!-- Page Content -->
         <main>
-            
             {{ $slot }}
         </main>
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="{{ asset('js/toast.js') }}"></script>
+    @if(session('typeToast') && session('titleToast') && session('messageToast'))
+        <script src="{{ asset('js/toast.js') }}"></script>
+    @endif
     @yield('js')
 </body>
 

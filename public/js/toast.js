@@ -2,11 +2,8 @@ $(document).ready(function () {
     type = $('#typeToast').val();
     title = $('#titleToast').val();
     message = $('#messageToast').val();
-    console.log(type);
-    console.log(title);
-    console.log(message);
 
-    if(typeToast != ''){
+    if(type != ''){
         toastr[type](message, title)
     }
 
