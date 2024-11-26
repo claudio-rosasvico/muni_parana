@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Emprendedores - Paraná</title>
+    <title>Gracias por registrarte</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -60,20 +60,19 @@
         <img src="{{ asset('img/logo.png') }}" alt="Logo Registro de Emprendedores" class="logo">
 
         <!-- Título -->
-        <h1>Bienvenido al Registro de Emprendedores de Paraná</h1>
+        <h1>¡Gracias por registrarte!</h1>
 
-        <!-- Descripción -->
+        <!-- Mensaje -->
         <p>
-            Este registro permitirá identificar y considerar a los emprendedores de la ciudad para 
-            participar en futuras capacitaciones, ferias y otras iniciativas de desarrollo económico.
+            Nos estaremos comunicando con vos en los próximos días para brindarte más información sobre 
+            futuras capacitaciones, ferias y otras iniciativas. ¡Te agradecemos ser parte de nuestra comunidad!
         </p>
 
-        <!-- Botón -->
-        <a href="/registroEmprendedor" class="btn btn-primary">Ir al formulario de registro</a>
+        <!-- Botón para volver -->
+        <a href="/welcome" class="btn btn-primary">Volver al inicio</a>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

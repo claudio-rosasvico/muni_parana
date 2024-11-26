@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Emprendedor;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('layouts.navigation', function ($view) {
+            $emprendedoresInactivos = Emprendedor::where('activo', 0)->count();
+            $view->with('emprendedoresInactivos', $emprendedoresInactivos);
+        });
     }
 }

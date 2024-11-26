@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/* PARA EMPRENEDORES */
+Route::get('/welcome', function () {return view('welcome');});
+Route::get('/saludo', function () {return view('saludo');});
+Route::get('/registroEmprendedor', function () {
+    $productos = Producto::all();    
+    return view('registroEmprendedor', ['productos' => $productos]);
+});
+Route::post('/emprendedor/registro', [EmprendedorController::class, 'storeEmprendedor']);
 
 Route::get('/', function () {
     return redirect('/login');
@@ -40,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/emprendedor/exportarImportar', [EmprendedorController::class, 'exportarImportar']);
     Route::get('/emprendedor/exportAll', [EmprendedorController::class, 'exportEmprendedor']);
     Route::post('/emprendedor/importEmprendedores', [EmprendedorController::class, 'importEmprendedores'])->name('importarEmprendedores');
+    Route::get('/emprendedor/inactivo', [EmprendedorController::class, 'indexInactivos']);
     Route::resource('emprendedor', EmprendedorController::class)->except('update', 'delete', 'search');
     
     /*Parámetros*/
@@ -48,12 +59,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/parametros/productos/store', [ProductoController::class, 'store']);
     Route::get('/parametros/getProductos', [ProductoController::class, 'showByEmprendedor']);
     Route::delete('/parametros/productos/delete/{idProducto}', [ProductoController::class, 'destroy']);
-    Route::get('/parametros/emprendimientoByProducto/{idProducto}', [ProductoController::class, 'emprendimientoByProducto']);
+    Route::get('/parametros/emprendimientoByProducto/{idProducto}', [ProductoController::class, 'emprendimientoByProducto'])->name('parametros.emprendimientoByProducto');
 
     /* User */
     Route::get('user', [UserController::class, 'index'])->middleware('role:administrador');
     Route::post('user/updateRole', [UserController::class, 'updateRole']);
     Route::post('user/destroy', [UserController::class, 'destroy']);
+
+    /* Capacitación */
+    Route::post('capacitacion/sumaEmprendedor', [CapacitacionController::class, 'sumaEmprendedor']);
+    Route::get('capacitacion/obtenerEmprendedores/{idCapacitacion}', [CapacitacionController::class, 'obtenerEmprendedores']);
+    Route::delete('capacitacion/delete', [CapacitacionController::class, 'deleteEmprendedorCapacitacion']);
+    Route::resource('capacitacion', CapacitacionController::class);
 
 });
 

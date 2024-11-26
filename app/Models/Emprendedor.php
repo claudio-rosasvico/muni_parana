@@ -35,4 +35,12 @@ class Emprendedor extends Model
     public function emprendimiento(){
         return $this->hasMany(Emprendimiento::class, 'emprendedor_id');
     }
+
+    public function actividades(){
+        return $this->hasMany(Emprendedor_actividad::class, 'emprendedor_id');
+    }
+
+    public function capacitaciones(){
+        return $this->hasMany(Emprendedor_capacitacion::class, 'emprendedor_id');
+    }
 }

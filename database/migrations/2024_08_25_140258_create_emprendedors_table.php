@@ -16,9 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->integer('user_id');
-            $table->string('nro_expediente');
-            $table->integer('anio_expediente');
+            $table->integer('user_id')->default(-1);
+            $table->string('nro_expediente')->default('S/Expediente');
+            $table->integer('anio_expediente')->default(1900);
             $table->string('apellido');
             $table->string('nombre');
             $table->string('DNI')->default('S/DNI');

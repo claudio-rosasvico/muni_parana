@@ -2,6 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
+            @auth
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -12,21 +13,23 @@
                 @hasanyrole('administrador|editor')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :active="request()->routeIs('/emprendedor')" class="dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <x-nav-link :active="request()->routeIs('emprendedor')" class="dropdown-toggle" href="#"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ __('Emprendedores') }}
                     </x-nav-link>
                     <ul class="dropdown-menu">
                         <li>
-                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor">Lista de Emprendedores</x-nav-link>
+                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor">Lista de Emprendedores
+                            </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Exportar/Importar</x-nav-link>
+                            <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">
+                                Exportar/Importar</x-nav-link>
                         </li>
                     </ul>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex dropdown">
-                    <x-nav-link :active="request()->routeIs('dashboard')" class="dropdown-toggle" href="#" role="button"
+                    <x-nav-link :active="request()->path() == '/parametros/productos'" class="dropdown-toggle" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         {{ __('Configuración') }}
                     </x-nav-link>
@@ -42,10 +45,27 @@
                     </ul>
                 </div>
                 @endhasanyrole
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex dropdown">
+                    <x-nav-link :active="request()->routeIs('capacitacion')" href="/capacitacion" role="button">
+                        {{ __('Capacitaciones') }}
+                    </x-nav-link>
+                </div>
             </div>
             <img src="" alt="" height="">
+
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                @if ($emprendedoresInactivos > 0)
+                <div class="me-3">
+                    <a href="/emprendedor/inactivo" type="button" class="btn btn-link position-relative" title="Inactivos">
+                        <i class="fa-regular fa-user"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $emprendedoresInactivos }}
+                        </span>
+                    </a>
+                </div>
+                @endif
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -80,6 +100,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endauth
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -109,7 +130,7 @@
         <div class="pb-1 border-t border-gray-200">
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+                    aria-expanded="false">
                     {{ __('Emprendedores') }}
                 </x-responsive-nav-link>
                 <ul class="dropdown-menu">
@@ -118,7 +139,8 @@
                     </li>
                     @hasrole('administrador')
                     <li>
-                        <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Exportar/Importar</x-nav-link>
+                        <x-nav-link class="dropdown-item ms-1" href="/emprendedor/exportarImportar">Exportar/Importar
+                        </x-nav-link>
                     </li>
                     @endhasrole
                 </ul>
@@ -136,6 +158,10 @@
                     </li>
                     @endhasrole
                 </ul>
+                <x-responsive-nav-link href="#" role="button">
+                    {{ __('Capacitaciones') }}
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

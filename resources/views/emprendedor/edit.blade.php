@@ -57,10 +57,15 @@
                                     <x-text-input type="email" name="email" id="email" value="{{ $emprendedor->email }}" id="email" required>
                                     </x-text-input>
                                 </div>
-                                <div class="col-4">
-                                    <x-input-label for="venc_carnet">Venc. Carnet </x-input-label>
+                                <div class="col-3">
+                                    <x-input-label for="venc_carnet">Venc. Carnet</x-input-label>
                                     <x-text-input type="date" name="venc_carnet" id="venc_carnet" value="{{ $emprendedor->venc_carnet }}"  required>
                                     </x-text-input>
+                                </div>
+                                <div class="col-1">
+                                    <x-input-label for="venc_carnet">Activo</x-input-label>
+                                    <input type="checkbox" name="activo" {{$emprendedor->activo == 1 ? 'checked' : ''}}>
+                                    
                                 </div>
                             </div>
                             <div class="text-center mt-5">

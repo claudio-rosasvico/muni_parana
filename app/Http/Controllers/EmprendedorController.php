@@ -27,9 +27,16 @@ class EmprendedorController extends Controller
      */
     public function index()
     {
-        $emprendedores = Emprendedor::orderBy('venc_carnet', 'asc')->get();
+        $emprendedores = Emprendedor::where('activo', 1)->orderBy('venc_carnet', 'asc')->get();
 
         return view('emprendedor.index', ['emprendedores' => $emprendedores]);
+    }
+    
+    public function indexInactivos()
+    {
+        $emprendedores = Emprendedor::where('activo', 0)->orderBy('venc_carnet', 'asc')->get();
+
+        return view('emprendedor.noActivos', ['emprendedores' => $emprendedores]);
     }
 
     /**
@@ -46,6 +53,7 @@ class EmprendedorController extends Controller
      */
     public function store(Request $request)
     {
+        
 
         $emprendedor = Emprendedor::create([
             'user_id' => auth()->user()->id,
@@ -56,6 +64,7 @@ class EmprendedorController extends Controller
             'telefono' => $request->telefono,
             'email' => $request->email,
             'venc_carnet' => $request->venc_carnet,
+            'activo' => $request->activo,
         ]);
 
         $emprendimiento = Emprendimiento::create([
@@ -75,6 +84,29 @@ class EmprendedorController extends Controller
             ->with('typeToast', 'success')
             ->with('titleToast', 'Excelente')
             ->with('messageToast', 'Emprendedor creado correctamente');
+    }
+    public function storeEmprendedor(Request $request)
+    {
+
+        $emprendedor = Emprendedor::create([
+            'user_id' => (isset(auth()->user()->id)? auth()->user()->id: -1),
+            'nro_expediente' => 'S/Expediente',
+            'anio_expediente' => 1900,
+            'apellido' => $request->apellido,
+            'nombre' => $request->nombre,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
+            'venc_carnet' => $request->venc_carnet,
+            'activo' => $request->activo,
+        ]);
+
+        $emprendimiento = Emprendimiento::create([
+            'emprendedor_id' => $emprendedor->id,
+            'nombre' => $request->nombre_emprendimiento,
+            'habilitacion' => $request->habilitacion,
+        ]);
+
+        return redirect('/saludo');
     }
 
 
@@ -114,13 +146,14 @@ class EmprendedorController extends Controller
     {
         $emprendedor = Emprendedor::find($idEmprendedor);
         $emprendedor->user_id = auth()->user()->id;
-        $emprendedor->nro_expediente = $request->nro_expediente;
+        $emprendedor->nro_expediente = (isset($request->nro_expediente)? $request->nro_expediente: 'S/Expediente');
         $emprendedor->anio_expediente = $request->anio_expediente;
         $emprendedor->apellido = $request->apellido;
         $emprendedor->nombre = $request->nombre;
         $emprendedor->telefono = $request->telefono;
         $emprendedor->email = $request->email;
         $emprendedor->venc_carnet = $request->venc_carnet;
+        $emprendedor->activo = $request->activo == 'on'? 1 : 0;
         $emprendedor->save();
 
         $emprendimiento = $emprendedor->emprendimiento->first();
@@ -138,11 +171,19 @@ class EmprendedorController extends Controller
         }
 
         $emprendedores = Emprendedor::orderBy('venc_carnet', 'asc')->get();
-
-        return redirect('/emprendedor')
-            ->with('typeToast', 'success')
-            ->with('titleToast', 'Excelente')
-            ->with('messageToast', 'Emprendedor actualizado correctamente');
+        /* return $request->activo; */
+        
+        if($emprendedor->activo){
+            return redirect('/emprendedor')
+                ->with('typeToast', 'success')
+                ->with('titleToast', 'Excelente')
+                ->with('messageToast', 'Emprendedor actualizado correctamente');
+        } else {
+            return redirect('/emprendedor/inactivo')
+                ->with('typeToast', 'success')
+                ->with('titleToast', 'Excelente')
+                ->with('messageToast', 'Emprendedor actualizado correctamente');
+        }
     }
 
     /**
